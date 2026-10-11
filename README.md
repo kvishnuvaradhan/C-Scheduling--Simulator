@@ -1,42 +1,47 @@
 # Python-Based CPU Scheduling Simulator
 
-## Project Overview
-This project implements a Python-based simulator to study and compare classical CPU scheduling algorithms. It visualizes process execution using Gantt charts and compares scheduling performance.
+## Project overview
+This project simulates classical CPU scheduling algorithms and visualizes process execution using Gantt charts. It also compares waiting time, turnaround time, and throughput.
 
-## Algorithms Implemented
-- First Come First Serve (FCFS)
-- Shortest Job First (SJF)
-- Round Robin (RR)
-- Priority Scheduling
-- Dynamic Workload Adaptation
+## Algorithms
+- First Come First Serve (FCFS), non-preemptive
+- Shortest Job First (SJF), non-preemptive
+- Round Robin (RR), with a configurable time quantum (default 2)
+- Priority Scheduling, non-preemptive; a smaller priority number means higher priority
+- Dynamic Workload Adaptation: processes with arrival time <= 3 are placed in an SJF batch; processes with arrival time > 3 are placed in an RR batch. The SJF batch is scheduled first, followed by the RR batch.
 
-## Technologies Used
+## Technologies
 - Python
 - Pandas
 - Matplotlib
-- Google Colab
 
-## Dynamic Workload Adaptation
-The proposed approach uses Shortest Job First (SJF) for processes arriving at or before time 3 and Round Robin (RR) for processes arriving after time 3, using a time quantum of 2.
+## Requirements
+Python 3.9 or newer is recommended.
 
-## Performance Metrics
-- Waiting Time
-- Turnaround Time
-- Completion Time
-- Average Waiting Time
-- Average Turnaround Time
+## Installation
+```bash
+python -m pip install -r requirements.txt
+```
 
-## Features
-- Process input using arrival time, burst time, and priority
-- Gantt chart visualization
-- Performance comparison between scheduling algorithms
-- Dynamic scheduling demonstration
+## Run
+```bash
+python cpu_scheduling.py
+```
 
-## How to Run
-1. Install Python and the required libraries.
-2. Download the Python source code from this repository.
-3. Install dependencies using `pip install -r requirements.txt`.
-4. Run the program using `python cpu_scheduling.py`.
+Enter the number of processes, then enter each process's arrival time, burst time, and priority. Choose one algorithm or compare all five.
 
-## Project Report
-The project report contains the design, algorithms, implementation methodology, results, and future improvements.
+## Metrics
+- Completion time
+- Turnaround time = completion time - arrival time
+- Waiting time = turnaround time - burst time
+- Average waiting time
+- Average turnaround time
+- Throughput (processes per time unit)
+
+## Notes about the dynamic rule
+The accompanying project paper describes the dynamic method as SJF for the early-arriving batch and Round Robin for later arrivals, with a time quantum of 2. This implementation interprets the threshold as arrival time <= 3 for the SJF batch and arrival time > 3 for the RR batch, then runs the batches sequentially. That is a clear, runnable interpretation of the paper's pseudocode; it may differ from the original Google Colab implementation if its exact code used a different integration strategy.
+
+## Files
+- `cpu_scheduling.py` — simulator source code
+- `requirements.txt` — Python dependencies
+- `CPU_Scheduling_Report.pdf` — optional project report, if you add it yourself
